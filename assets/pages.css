@@ -344,3 +344,16 @@ body.locked .topnav,body.locked .scrollbar,body.locked #app{display:none;}
 .cons-chips button{min-width:96px;font-size:14px;padding:10px 20px;background:transparent;border-color:rgba(255,255,255,.25);color:#DCE7DA;}
 .cons-chips button:hover{border-color:var(--yellow);color:#fff;}
 .cons-chips button.on{background:var(--yellow);border-color:var(--yellow);color:#1B2A1B;}
+/* ============ Contraste entre faixas: branco / verde / preto ============ */
+.fold.light{background:linear-gradient(160deg,#00AC58 0%,#008C47 100%);}
+.fold.light .eyebrow-lbl{color:var(--yellow);}
+.fold.light .sec-title{color:#fff;}
+.fold.light .sec-sub,.fold.light .wrap > .note{color:rgba(255,255,255,.88);}
+.fold.light .chips button{background:#fff;border-color:#fff;color:var(--charcoal-2);}
+.fold.light .chips button:hover{border-color:#111611;}
+.fold.light .chips button.on{background:#111611;border-color:#111611;color:#fff;}
+.fold.light .lcard,.fold.light .acard{background:#fff;}
+.fold.light .chart-card,.fold.light .card,.fold.light .tlsel{box-shadow:0 18px 40px rgba(0,40,20,.22);}
+.dark-section,.fold.dark{background:linear-gradient(160deg,#070907 0%,#111611 60%,#16211A 100%);}
+.dark-section .card,.cons,.mcard2,.dark-section .chart-card{background:#1A221B;}
+.ct{background:#222C23;}

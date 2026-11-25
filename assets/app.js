@@ -301,24 +301,24 @@
     h += band('engenheiro-obra', 'Como ler os relatórios', 'Cada relatório traz a visão geral de <b>Meta Ads</b> e <b>Google Ads</b>, o desempenho por campanha e os principais anúncios do mês.', 'Conversões = leads registrados nas campanhas do Google Ads');
 
     var consPanels = D.consolidated.map(function (c, i) {
-        var X = D.consolidatedExtra[i], set = i === 0 ? y26full : M.filter(function (m) { return m.id >= '2025-08' && m.id <= '2025-10'; });
+        var X = D.consolidatedExtra[i], set = i === 0 ? y26full : M.filter(function (m) { return m.id >= '2025-08' && m.id <= '2025-12'; });
         var s = function (f) { return sum(set, f); };
         var g = { imp: s(function (m) { return m.google.imp; }), cl: s(function (m) { return m.google.clicks; }), cost: s(function (m) { return m.google.cost; }), cv: s(function (m) { return m.google.conv; }) };
         var mt = { imp: s(function (m) { return m.meta.imp; }), cl: s(function (m) { return m.meta.clicks; }), sp: s(function (m) { return m.meta.spend; }), vid: s(function (m) { return m.meta.video; }) };
-        var v = X.metaVar, up = function (k) { return v ? '<span class="chg up">▲ ' + P(v[k], 1) + '</span>' : ''; };
+        var v = null, up = function (k) { return v ? '<span class="chg up">▲ ' + P(v[k], 1) + '</span>' : ''; };
         var tile = function (l, val, c2) { return '<div class="ct"><span>' + l + '</span><b>' + val + '</b>' + (c2 || '') + '</div>'; };
         return '<article class="cons reveal"><div class="cons-h"><div><span class="tag y">' + esc(X.periodo) + '</span><h3>' + esc(c.label) + '</h3><p>' + esc(X.intro) + '</p></div>' +
           '<div class="cons-tot"><b>' + R(g.cost + mt.sp) + '</b><span>investimento total · ' + set.length + ' meses</span></div></div>' +
           '<div class="cons-cols"><div><p class="plat"><i style="background:' + C.g + '"></i>Google Ads</p><div class="cons-grid">' +
           tile('Impressões', N(g.imp)) + tile('Cliques', N(g.cl)) + tile('CTR', P(g.cl / g.imp * 100)) + tile('Investimento', R(g.cost)) + tile('Conversões', N(g.cv, g.cv % 1 ? 1 : 0)) + tile('Custo/conversão', R(g.cost / g.cv)) + '</div></div>' +
           '<div><p class="plat"><i style="background:#B9BABC"></i>Meta Ads' + (v ? ' <small>' + esc(v.nota) + '</small>' : '') + '</p><div class="cons-grid">' +
-          tile('Impressões', N(mt.imp), up('imp')) + tile('Alcance', N(X.reach), up('reach')) + tile('Cliques', N(mt.cl), up('clicks')) + tile('CTR', P(mt.cl / mt.imp * 100), up('ctr')) + tile('Vídeo views', N(mt.vid), up('video')) + tile('Investimento', R(mt.sp), up('spend')) + '</div></div></div>' +
+          tile('Impressões', N(mt.imp), up('imp')) + tile('Cliques', N(mt.cl), up('clicks')) + tile('CTR', P(mt.cl / mt.imp * 100), up('ctr')) + tile('Custo por clique', R(mt.sp / mt.cl)) + tile('Vídeo views', N(mt.vid), up('video')) + tile('Investimento', R(mt.sp), up('spend')) + '</div></div></div>' +
           '<p class="plat" style="margin-top:26px">Destaques do período</p><div class="cons-hl">' + X.destaques.map(function (d) { return '<div><b>' + esc(d.big) + '</b><span>' + esc(d.t) + '</span><small>' + esc(d.p) + '</small></div>'; }).join('') + '</div>' +
-          pdfBtns(c.file, c.label) + '</article>';
+          (i === 1 ? '<p class="note" style="color:#9FB49B">O PDF consolidado cobre agosto a outubro de 2025; novembro e dezembro estão nos relatórios mensais.</p>' : '') + pdfBtns(c.file, i === 1 ? 'Relatório consolidado ago–out/2025' : c.label) + '</article>';
     });
     h += fold('dark', head('Consolidados', 'Visões de período', 'Escolha o período para ver os indicadores de Google Ads e Meta Ads e os destaques do relatório consolidado.', 'ondark') +
       '<div class="chips cons-chips reveal" id="consChips">' + D.consolidated.map(function (c, i) { return '<button data-cons="' + i + '">' + (i === 0 ? '2026' : '2025') + '</button>'; }).join('') + '</div>' +
-      '<div id="consDetail"></div><p class="note reveal">Indicadores somados a partir dos relatórios mensais do período. Alcance, variações e destaques conforme o relatório consolidado.</p>');
+      '<div id="consDetail"></div><p class="note reveal">Indicadores somados a partir dos relatórios mensais do período. Destaques conforme os relatórios consolidado (2026) e mensais (2025).</p>');
     h += fold('light', head('Explorar mês', 'Detalhe do relatório', 'Escolha um mês para ver todos os indicadores, a variação contra o mês anterior e o documento original.') +
       '<div class="chips reveal" id="repChips">' + M.slice().reverse().map(function (m) { return '<button data-m="' + m.id + '">' + esc(m.short) + '</button>'; }).join('') + '</div><div id="repDetail"></div>', 'explorar');
 

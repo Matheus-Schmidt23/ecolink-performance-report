@@ -32,7 +32,7 @@ window.DASHBOARD = {
   ],
   "consolidated": [
     { "label": "Consolidado jan–out/2026", "file": "Relatórios Ecolink/Consolidados/[Ecolink] Relatório de Tráfego Pago - 01-01-26 a 31-10-26.pdf" },
-    { "label": "Consolidado ago–out/2025", "file": "Relatórios Ecolink/Consolidados/[Ecolink] Relatório de Tráfego Pago - 01-08-25 a 31-10-25.pdf" }
+    { "label": "Consolidado ago–dez/2025", "file": "Relatórios Ecolink/Consolidados/[Ecolink] Relatório de Tráfego Pago - 01-08-25 a 31-10-25.pdf" }
   ],
   "months": [
     {"id":"2025-08","label":"Agosto 2025","short":"Ago/25","partial":false,"period":"01/08 a 31/08/2025","report":"Relatórios Ecolink/Mensais 2025/[Ecolink] Relatório de Tráfego Pago - Mês 08 de 2025.pdf","meta":{"imp":42553,"reach":29068,"clicks":2762,"video":7719,"spend":308.04},"google":{"imp":5253,"clicks":497,"cost":421.08,"conv":28},"highlight":"O anúncio de vídeo <b>“Ecolink Solutions – Os vídeos que já rodaram o Brasil…”</b> gerou 2.310 cliques com CTR de 16,94%. No Google, 28 conversões a R$ 15,04."},
@@ -114,15 +114,15 @@ window.DASHBOARD = {
       ]
     },
     {
-      "periodo": "01/08 a 31/10/2025",
-      "intro": "Os três primeiros meses: estreia da estrutura de campanhas [MT] no Meta e no Google e construção da base de audiência.",
+      "periodo": "01/08 a 31/12/2025",
+      "intro": "Os cinco primeiros meses: estreia da estrutura de campanhas [MT] no Meta e no Google e construção da base de audiência.",
       "reach": 280892,
       "metaVar": null,
       "destaques": [
-        { "big": "2.863", "t": "cliques em Tráfego para LP", "p": "[MT] Tráfego para LP · 330.414 impressões" },
-        { "big": "12.471", "t": "visualizações em Video View", "p": "[MT] Video View · 13.643 impressões" },
-        { "big": "252,2", "t": "conversões na Performance Max", "p": "[MT] Performance Max [Leads] · 2.131 cliques" },
-        { "big": "1.539", "t": "cliques no melhor anúncio", "p": "“Quando o solo é bem tratado…” · 161.377 impressões" }
+        { "big": "7.342", "t": "cliques em Tráfego para LP", "p": "[MT] Tráfego para LP · 678.344 impressões" },
+        { "big": "58.319", "t": "visualizações em Video View", "p": "[MT] Video View · 83.899 impressões" },
+        { "big": "932,2", "t": "conversões na Performance Max", "p": "[MT] Performance Max [Leads] · 5.889 cliques" },
+        { "big": "3.365", "t": "cliques Meta em dez/25", "p": "Maior volume mensal de 2025, com 45.000 visualizações de vídeo" }
       ]
     }
   ],
