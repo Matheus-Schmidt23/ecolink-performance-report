@@ -337,3 +337,10 @@ body.locked .topnav,body.locked .scrollbar,body.locked #app{display:none;}
 .login-j9{height:22px;width:auto;margin-top:26px;opacity:.9;}
 .shake{animation:shake .35s ease;}
 @keyframes shake{0%,100%{transform:none;}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
+.ad-media{max-height:none;aspect-ratio:4/5;} .ad-media img{object-position:center;}
+.chips .cons-chip{border-color:var(--yellow);background:#FFF9DB;color:#5E4E00;}
+.chips .cons-chip.on{background:var(--yellow);border-color:var(--yellow);color:#1B2A1B;}
+#repDetail .cons{margin-top:4px;}
+.cons-chips button{min-width:96px;font-size:14px;padding:10px 20px;background:transparent;border-color:rgba(255,255,255,.25);color:#DCE7DA;}
+.cons-chips button:hover{border-color:var(--yellow);color:#fff;}
+.cons-chips button.on{background:var(--yellow);border-color:var(--yellow);color:#1B2A1B;}

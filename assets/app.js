@@ -290,22 +290,17 @@
 
     var MF = M.filter(function (m) { return !m.partial; });
     var best = function (f) { return MF.reduce(function (a, b) { return f(b) > f(a) ? b : a; }); };
-    var mapCard = function (id, title, f, fmt, leg) { var b = best(f); return '<div class="chart-card hbox reveal mapc"><div class="chart-head"><div><p class="table-title">' + title + '</p><p class="mapc-best"><b>' + fmt(f(b)) + '</b><span>melhor mês · ' + esc(b.short) + '</span></p></div>' + (leg || '') + '</div><div class="chart" id="' + id + '"></div></div>'; };
+    var mapCard = function (id, title, f, fmt, leg, avg) { var b = best(f), a = avg ? avg() : sum(MF, f) / MF.length; return '<div class="chart-card hbox reveal mapc"><div class="chart-head"><div><p class="table-title">' + title + '</p><p class="mapc-best"><b>' + fmt(a) + '</b><span>média mensal · melhor mês: ' + esc(b.short) + ' (' + fmt(f(b)) + ')</span></p></div>' + (leg || '') + '</div><div class="chart" id="' + id + '"></div></div>'; };
     h += fold('white', head('Mapa do período', 'Os 16 meses em quatro indicadores', 'Passe o mouse para ver os valores. Clique em uma barra para abrir o mês.') +
       '<div class="chart-grid">' +
       mapCard('mapInv', 'Investimento', function (m) { return m.total; }, R, legend([['Google', C.g], ['Meta', C.m]])) +
       mapCard('mapClk', 'Cliques', function (m) { return m.google.clicks + m.meta.clicks; }, function (v) { return N(v); }, legend([['Google', C.g], ['Meta', C.m]])) +
-      mapCard('mapCtr', 'CTR Meta Ads', function (m) { return m.meta.ctr; }, function (v) { return P(v); }) +
+      mapCard('mapCtr', 'CTR Meta Ads', function (m) { return m.meta.ctr; }, function (v) { return P(v); }, '', function () { return sum(MF, function (m) { return m.meta.clicks; }) / sum(MF, function (m) { return m.meta.imp; }) * 100; }) +
       mapCard('mapVid', 'Visualizações de vídeo · Meta', function (m) { return m.meta.video; }, function (v) { return N(v); }) + '</div>', 'mapa');
 
     h += band('engenheiro-obra', 'Como ler os relatórios', 'Cada relatório traz a visão geral de <b>Meta Ads</b> e <b>Google Ads</b>, o desempenho por campanha e os principais anúncios do mês.', 'Conversões = leads registrados nas campanhas do Google Ads');
 
-    h += fold('light', head('Explorar mês', 'Detalhe do relatório', 'Escolha um mês para ver todos os indicadores, a variação contra o mês anterior e o documento original.') +
-      '<div class="chips reveal" id="repChips">' + M.slice().reverse().map(function (m) { return '<button data-m="' + m.id + '">' + esc(m.short) + '</button>'; }).join('') + '</div><div id="repDetail"></div>', 'explorar');
-
-
-    h += fold('dark', head('Consolidados', 'Visões de período', 'Os dois relatórios consolidados, com os indicadores de Google Ads e Meta Ads e os destaques de cada período.', 'ondark') +
-      '<div class="cons-list">' + D.consolidated.map(function (c, i) {
+    var consPanels = D.consolidated.map(function (c, i) {
         var X = D.consolidatedExtra[i], set = i === 0 ? y26full : M.filter(function (m) { return m.id >= '2025-08' && m.id <= '2025-10'; });
         var s = function (f) { return sum(set, f); };
         var g = { imp: s(function (m) { return m.google.imp; }), cl: s(function (m) { return m.google.clicks; }), cost: s(function (m) { return m.google.cost; }), cv: s(function (m) { return m.google.conv; }) };
@@ -320,7 +315,12 @@
           tile('Impressões', N(mt.imp), up('imp')) + tile('Alcance', N(X.reach), up('reach')) + tile('Cliques', N(mt.cl), up('clicks')) + tile('CTR', P(mt.cl / mt.imp * 100), up('ctr')) + tile('Vídeo views', N(mt.vid), up('video')) + tile('Investimento', R(mt.sp), up('spend')) + '</div></div></div>' +
           '<p class="plat" style="margin-top:26px">Destaques do período</p><div class="cons-hl">' + X.destaques.map(function (d) { return '<div><b>' + esc(d.big) + '</b><span>' + esc(d.t) + '</span><small>' + esc(d.p) + '</small></div>'; }).join('') + '</div>' +
           pdfBtns(c.file, c.label) + '</article>';
-      }).join('') + '</div>' + '<p class="note reveal">Indicadores somados a partir dos relatórios mensais do período. Alcance, variações e destaques conforme o relatório consolidado.</p>');
+    });
+    h += fold('dark', head('Consolidados', 'Visões de período', 'Escolha o período para ver os indicadores de Google Ads e Meta Ads e os destaques do relatório consolidado.', 'ondark') +
+      '<div class="chips cons-chips reveal" id="consChips">' + D.consolidated.map(function (c, i) { return '<button data-cons="' + i + '">' + (i === 0 ? '2026' : '2025') + '</button>'; }).join('') + '</div>' +
+      '<div id="consDetail"></div><p class="note reveal">Indicadores somados a partir dos relatórios mensais do período. Alcance, variações e destaques conforme o relatório consolidado.</p>');
+    h += fold('light', head('Explorar mês', 'Detalhe do relatório', 'Escolha um mês para ver todos os indicadores, a variação contra o mês anterior e o documento original.') +
+      '<div class="chips reveal" id="repChips">' + M.slice().reverse().map(function (m) { return '<button data-m="' + m.id + '">' + esc(m.short) + '</button>'; }).join('') + '</div><div id="repDetail"></div>', 'explorar');
 
     h += pager(1) + '</main>';
 
@@ -402,6 +402,10 @@
       extra: function (i) { return '<div class="r"><span>Total</span><b>' + CT[i].total_posts + '</b></div>'; } });
 
     /* exploradores */
+    var selCons = function (i) {
+      $('consDetail').innerHTML = consPanels[i]; reveal(['consDetail']);
+      [].forEach.call(document.querySelectorAll('#consChips button'), function (b) { b.classList.toggle('on', +b.dataset.cons === i); });
+    };
     var selRep = function (id) {
       var m = M.filter(function (x) { return x.id === id; })[0], p = M[M.indexOf(m) - 1], pm = m.partial ? null : p, g = m.google, mm = m.meta, sh = gs.filter(function (x) { return x.id === id; })[0];
       var c = function (k, plat, inv) { return pm ? chg(m[plat][k], pm[plat][k], inv) : ''; };
@@ -438,16 +442,17 @@
       [].forEach.call(document.querySelectorAll('#tlTrack button'), function (b) { b.classList.toggle('on', b.dataset.tl === id); });
     };
     document.addEventListener('click', function (e) {
-      var t = e.target.closest('[data-m],[data-tl],[data-month],[data-pdf],[data-img],[data-slides],[data-lm]'); if (!t) return;
+      var t = e.target.closest('[data-cons],[data-m],[data-tl],[data-month],[data-pdf],[data-img],[data-slides],[data-lm]'); if (!t) return;
       if (t.dataset.pdf) { e.preventDefault(); openPdf(t.dataset.pdf, t.dataset.title); }
       else if (t.dataset.img) { openImg(t.dataset.img, t.dataset.cap); }
+      else if (t.dataset.cons) selCons(+t.dataset.cons);
       else if (t.dataset.tl) selTl(t.dataset.tl);
       else if (t.closest('#repChips')) selRep(t.dataset.m);
       else if (t.dataset.slides) openSlides(t.dataset.slides.split('|'), t.dataset.cap, 0);
       else if (t.dataset.lm) renderLib(t.parentNode.dataset.lib, t.dataset.lm);
       else if (t.dataset.month) { e.preventDefault(); selRep(t.dataset.month); location.hash = 'relatorios'; setTimeout(function () { $('explorar').scrollIntoView(); }, 30); }
     });
-    selRep(last.id); selTl(last.id); ['e', 'c', 'a'].forEach(function (k) { renderLib(k, CT[CT.length - 1].month); });
+    selCons(0); selRep(last.id); selTl(last.id); ['e', 'c', 'a'].forEach(function (k) { renderLib(k, CT[CT.length - 1].month); });
 
     initUI();
   }
