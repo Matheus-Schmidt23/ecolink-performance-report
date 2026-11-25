@@ -213,7 +213,7 @@
 
     /* ===================== PÁGINA 01 · ANÁLISE ===================== */
     h += '<main class="page" data-page="analise">';
-    h += phero('pavimentacao', '01 · Análise consolidada · ' + esc(D.info.periodLabel), 'Mais resultado com o <span class="hl">mesmo investimento</span>',
+    h += phero('pavimentacao', '01 · Análise consolidada · ' + esc(D.info.periodLabel), 'Mais resultado com o <span class="hl">mesmo&nbsp;investimento</span>',
       'Resultados consolidados de Google Ads, Meta Ads e planejamento editorial da Ecolink Solutions, preparados por ' + esc(D.info.agency) + '.',
       [[R(T.spend), 'investidos em mídia paga'], [N(T.clicks), 'cliques gerados'], [N(T.conv26), 'conversões Google em 2026'], [M.length, 'relatórios mensais']], 'resumo');
 
@@ -227,7 +227,7 @@
       '<p class="note reveal">' + esc(D.info.kpiNote) + '</p>', 'resumo');
 
     h += fold('light', head('Investimento', 'Para onde foi a verba', 'Distribuição do investimento entre as plataformas e evolução mês a mês.') +
-      '<div class="inv-grid"><div class="chart-card reveal"><p class="table-title">Divisão do investimento</p><div class="donut-wrap">' +
+      '<div class="inv-grid"><div class="chart-card hbox reveal"><p class="table-title">Divisão do investimento</p><div class="donut-wrap">' +
       donut([{ v: T.gs, c: C.g }, { v: T.ms, c: C.m }], P(T.gs / T.spend * 100, 0), 'Google Ads') +
       '<div class="donut-legend"><div class="row"><span class="sw" style="background:' + C.g + '"></span><span>Google Ads</span><b>' + R(T.gs) + '</b></div><div class="row"><span class="sw" style="background:' + C.m + '"></span><span>Meta Ads</span><b>' + R(T.ms) + '</b></div>' +
       '<div class="row"><span class="sw" style="background:#DCE0DC"></span><span>Média mensal (meses completos)</span><b>' + R(sum(M.filter(function (m) { return !m.partial; }), function (m) { return m.total; }) / (M.length - 1)) + '</b></div></div></div></div>' +
@@ -266,7 +266,7 @@
           '<div><b>' + N(c.imp) + '</b><span>impressões</span>' + growth(c.imp, c.prev.imp) + '</div><div><b>' + N(c.clicks) + '</b><span>cliques</span>' + growth(c.clicks, c.prev.clicks) + '</div>' +
           '<div><b>' + N(c.conv) + '</b><span>conversões</span>' + growth(c.conv, c.prev.conv) + '</div></div><p class="note">Anterior: ' + N(c.prev.conv, 1) + ' conversões · ' + N(c.prev.clicks) + ' cliques</p></div>';
       }).join('') + '</div>' +
-      '<div class="chart-card reveal" style="margin-top:22px"><div class="chart-head"><div><p class="table-title">Parcela de impressões perdidas na pesquisa</p><p class="chart-sub">% perdida por orçamento e por classificação (rank)</p></div>' + legend([['Orçamento', '#FDD400'], ['Classificação', '#2A2A2A']]) + '</div><div class="chart" id="chShare"></div></div>' +
+      '<div class="chart-card hbox reveal" style="margin-top:22px"><div class="chart-head"><div><p class="table-title">Parcela de impressões perdidas na pesquisa</p><p class="chart-sub">% perdida por orçamento e por classificação (rank)</p></div>' + legend([['Orçamento', '#FDD400'], ['Classificação', '#2A2A2A']]) + '</div><div class="chart" id="chShare"></div></div>' +
       '<p class="note reveal">A perda por orçamento caiu ao longo de 2026, enquanto a perda por classificação voltou a subir — tema central da recomendação (página 04).</p>');
 
     h += fold('white', head('Criativos', 'Os 6 anúncios com mais cliques em 2026', 'Meta Ads · 01/01 a 31/10/2026. CTR médio da conta no período: ' + P(m26.ctr) + '.') +
@@ -285,7 +285,7 @@
 
     /* ===================== PÁGINA 02 · RELATÓRIOS ===================== */
     h += '<main class="page" data-page="relatorios">';
-    h += phero('rodovia', '02 · Relatórios', 'Resultados <span class="hl">mês a mês</span>', 'Os ' + M.length + ' relatórios mensais de tráfego pago e os 2 consolidados, com acesso ao documento original de cada período.',
+    h += phero('rodovia', '02 · Relatórios', 'Resultados <span class="hl">mês a&nbsp;mês</span>', 'Os ' + M.length + ' relatórios mensais de tráfego pago e os 2 consolidados, com acesso ao documento original de cada período.',
       [[M.length, 'relatórios mensais'], ['2', 'consolidados'], [R(last.total), 'investidos em ' + esc(last.short) + ' (até 16/11)'], [N(last.google.conv), 'conversões em ' + esc(last.short)]], 'mapa');
 
     var MF = M.filter(function (m) { return !m.partial; });
@@ -306,8 +306,8 @@
         var g = { imp: s(function (m) { return m.google.imp; }), cl: s(function (m) { return m.google.clicks; }), cost: s(function (m) { return m.google.cost; }), cv: s(function (m) { return m.google.conv; }) };
         var mt = { imp: s(function (m) { return m.meta.imp; }), cl: s(function (m) { return m.meta.clicks; }), sp: s(function (m) { return m.meta.spend; }), vid: s(function (m) { return m.meta.video; }) };
         var v = null, up = function (k) { return v ? '<span class="chg up">▲ ' + P(v[k], 1) + '</span>' : ''; };
-        var tile = function (l, val, c2) { return '<div class="ct"><span>' + l + '</span><b>' + val + '</b>' + (c2 || '') + '</div>'; };
-        return '<article class="cons reveal"><div class="cons-h"><div><span class="tag y">' + esc(X.periodo) + '</span><h3>' + esc(c.label) + '</h3><p>' + esc(X.intro) + '</p></div>' +
+        var tile = function (l, val, c2) { return '<div class="ct hbox"><span>' + l + '</span><b>' + val + '</b>' + (c2 || '') + '</div>'; };
+        return '<article class="cons hbox reveal"><div class="cons-h"><div><span class="tag y">' + esc(X.periodo) + '</span><h3>' + esc(c.label) + '</h3><p>' + esc(X.intro) + '</p></div>' +
           '<div class="cons-tot"><b>' + R(g.cost + mt.sp) + '</b><span>investimento total · ' + set.length + ' meses</span></div></div>' +
           '<div class="cons-cols"><div><p class="plat"><i style="background:' + C.g + '"></i>Google Ads</p><div class="cons-grid">' +
           tile('Impressões', N(g.imp)) + tile('Cliques', N(g.cl)) + tile('CTR', P(g.cl / g.imp * 100)) + tile('Investimento', R(g.cost)) + tile('Conversões', N(g.cv, g.cv % 1 ? 1 : 0)) + tile('Custo/conversão', R(g.cost / g.cv)) + '</div></div>' +
@@ -330,12 +330,12 @@
     var prods = Object.keys(prodMap).map(function (k) { return { l: k, v: prodMap[k] }; }).sort(function (a, b) { return b.v - a.v; });
     h += '<main class="page" data-page="conteudos">';
     var LB = D.library, nE = LB.filter(function (x) { return x.f === 'e'; }).length, nC = LB.filter(function (x) { return x.f === 'c'; }).length;
-    h += phero('estrada-rural', '03 · Conteúdos', 'Biblioteca de <span class="hl">conteúdo técnico</span>', 'Estáticos, carrosséis e artigos de blog dos ' + CT.length + ' planos mensais, organizados por formato e filtráveis por mês.',
+    h += phero('estrada-rural', '03 · Conteúdos', 'Biblioteca de <span class="hl">conteúdo&nbsp;técnico</span>', 'Estáticos, carrosséis e artigos de blog dos ' + CT.length + ' planos mensais, organizados por formato e filtráveis por mês.',
       [[N(nE), 'estáticos'], [N(nC), 'carrosséis'], [N(arts), 'artigos de blog'], [prods.length, 'produtos em pauta']], 'cvisao');
 
     h += fold('white', head('Visão geral', 'Cadência e formatos', 'Quantidade de posts planejados por formato em cada mês.') +
       '<div class="chart-grid">' + card('chFmt', 'Posts planejados por mês', 'Reels, estáticos e carrosséis', legend([['Reels', C.g], ['Estáticos', '#2A2A2A'], ['Carrosséis', '#FDD400']])) +
-      '<div class="chart-card reveal"><p class="table-title">Produtos em pauta</p><p class="chart-sub" style="margin-bottom:14px">Em quantos dos ' + CT.length + ' meses cada produto aparece no plano</p>' + hbars(prods, function (v) { return v + ' meses'; }).replace('class="hbars"', 'class="hbars compact"') + '</div></div>' +
+      '<div class="chart-card hbox reveal"><p class="table-title">Produtos em pauta</p><p class="chart-sub" style="margin-bottom:14px">Em quantos dos ' + CT.length + ' meses cada produto aparece no plano</p>' + hbars(prods, function (v) { return v + ' meses'; }).replace('class="hbars"', 'class="hbars compact"') + '</div></div>' +
       '<div class="disclaimer reveal" style="margin-top:22px"><span>ⓘ</span><span>' + esc(D.info.contentNote) + '</span></div>', 'cvisao');
 
     var libChips = function (k) { return '<div class="chips lib-chips" data-lib="' + k + '">' + CT.slice().reverse().map(function (c) { return '<button data-lm="' + c.month + '">' + esc(shortOf(c.month)) + '</button>'; }).join('') + '</div>'; };
@@ -348,7 +348,7 @@
     /* ===================== PÁGINA 04 · RECOMENDAÇÃO ===================== */
     var RC = D.recommendation, gs = D.googleShare;
     h += '<main class="page" data-page="recomendacao">';
-    h += phero('estrada-floresta', '04 · Recomendação estratégica', 'O próximo trecho da <span class="hl">estrada</span>', esc(RC.intro), null, 'diag');
+    h += phero('estrada-floresta', '04 · Recomendação estratégica', 'O próximo trecho da&nbsp;<span class="hl">estrada</span>', esc(RC.intro), null, 'diag');
 
     h += fold('white', head('Diagnóstico', 'O que os dados mostram') + '<div class="diag-grid">' + [
       [P(m26.ctr), 'CTR médio Meta em 2026', RC.diagnostico[0]], ['205/235', 'conversões vindas do Search', RC.diagnostico[1]],
@@ -357,7 +357,7 @@
 
     var fun = [[N(sum(y26full, function (m) { return m.google.imp; })), 'Impressões', 'Google Ads 2026 (jan–out)'], [N(sum(y26full, function (m) { return m.google.clicks; })), 'Cliques', 'CTR ' + P(g26.ctr)], [N(sum(y26full, function (m) { return m.google.conv; })), 'Conversões (leads)', 'registradas no Google Ads'], ['CRM', 'Vendas', 'próxima etapa: integrar leads e vendas']];
     h += fold('dark', head('Mensuração', 'Do clique à venda: o próximo passo', 'Funil do Google Ads em 2026 (jan–out). A integração com vendas é o próximo passo para medir o retorno.', 'ondark') +
-      '<div class="funnel">' + fun.map(function (f, i) { return '<div class="fn reveal' + (i === 3 ? ' miss' : '') + '" style="--w:' + (100 - i * 16) + '%"><b>' + f[0] + '</b><span>' + f[1] + '</span><small>' + f[2] + '</small></div>'; }).join('') + '</div>' +
+      '<div class="funnel">' + fun.map(function (f, i) { return '<div class="fn hbox reveal' + (i === 3 ? ' miss' : '') + '" style="--w:' + (100 - i * 16) + '%"><b>' + f[0] + '</b><span>' + f[1] + '</span><small>' + f[2] + '</small></div>'; }).join('') + '</div>' +
       '<div class="rec-grid" style="margin-top:30px">' + RC.mensuracao.map(function (x) { return '<div class="mcard2 hbox reveal"><b>' + esc(x.big) + '</b><span class="u">' + esc(x.unit) + '</span><h4>' + esc(x.t) + '</h4><p>' + esc(x.p) + '</p></div>'; }).join('') + '</div>');
 
     var opImgs = ['assets/posts/2026-10-10.jpg', IMG('pavimentacao'), 'assets/posts/2026-10-06.jpg'];
@@ -409,7 +409,7 @@
     var selRep = function (id) {
       var m = M.filter(function (x) { return x.id === id; })[0], p = M[M.indexOf(m) - 1], pm = m.partial ? null : p, g = m.google, mm = m.meta, sh = gs.filter(function (x) { return x.id === id; })[0];
       var c = function (k, plat, inv) { return pm ? chg(m[plat][k], pm[plat][k], inv) : ''; };
-      $('repDetail').innerHTML = '<div class="xp card"><div class="xp-h"><div><h3>' + esc(m.label) + '</h3><p class="chart-sub">' + esc(m.period) + (pm ? ' · variações vs. ' + esc(pm.label) : ' · dados até 16/11') + '</p></div><div class="xp-tot"><b>' + R(m.total) + '</b><span>investimento no mês</span></div></div>' +
+      $('repDetail').innerHTML = '<div class="xp card hbox"><div class="xp-h"><div><h3>' + esc(m.label) + '</h3><p class="chart-sub">' + esc(m.period) + (pm ? ' · variações vs. ' + esc(pm.label) : ' · dados até 16/11') + '</p></div><div class="xp-tot"><b>' + R(m.total) + '</b><span>investimento no mês</span></div></div>' +
         '<div class="xp-cols"><div><p class="plat"><i style="background:' + C.g + '"></i>Google Ads</p><div class="kpi-grid">' + kpi('Impressões', N(g.imp), c('imp', 'google')) + kpi('Cliques', N(g.clicks), c('clicks', 'google')) + kpi('CTR', P(g.ctr), c('ctr', 'google')) +
         kpi('Investimento', R(g.cost), c('cost', 'google')) + kpi('Conversões', N(g.conv, g.conv % 1 ? 1 : 0), c('conv', 'google')) + kpi('Custo/conversão', g.cpa ? R(g.cpa) : '—', c('cpa', 'google', true)) + '</div>' +
         (sh ? '<p class="note">Impressões perdidas: ' + P(sh.budget) + ' por orçamento · ' + P(sh.rank) + ' por classificação.</p>' : '') + '</div>' +
@@ -436,7 +436,7 @@
     };
     var selTl = function (id) {
       var m = M.filter(function (x) { return x.id === id; })[0];
-      $('tlCard').innerHTML = '<div class="tl-card"><div class="tl-main"><span class="tl-d">' + esc(m.label) + '</span><p class="chart-sub">' + esc(m.period) + '</p><p class="tl-hl">' + m.highlight + '</p>' +
+      $('tlCard').innerHTML = '<div class="tl-card hbox"><div class="tl-main"><span class="tl-d">' + esc(m.label) + '</span><p class="chart-sub">' + esc(m.period) + '</p><p class="tl-hl">' + m.highlight + '</p>' +
         '<div class="btn-row"><button class="btn" data-pdf="' + esc(m.report) + '" data-title="Relatório · ' + esc(m.label) + '">▣ Ver relatório completo</button><a class="btn light" href="#relatorios" data-month="' + m.id + '">Explorar o mês →</a></div></div>' +
         '<div class="tl-kpis">' + [[R(m.total), 'investimento'], [N(m.google.clicks + m.meta.clicks), 'cliques'], [N(m.google.conv, m.google.conv % 1 ? 1 : 0), 'conversões Google'], [P(m.meta.ctr), 'CTR Meta']].map(function (k) { return '<div><b>' + k[0] + '</b><span>' + k[1] + '</span></div>'; }).join('') + '</div></div>';
       [].forEach.call(document.querySelectorAll('#tlTrack button'), function (b) { b.classList.toggle('on', b.dataset.tl === id); });

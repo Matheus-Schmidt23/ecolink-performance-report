@@ -370,3 +370,14 @@ body.locked .topnav,body.locked .scrollbar,body.locked #app{display:none;}
 .adcard .ad-top{grid-column:2;margin:0;}
 .adcard .ad-name{grid-column:2;min-height:0;font-size:13.5px;}
 .adcard .ad-nums{grid-column:1 / -1;margin:14px 0 0;}
+/* Efeito de mouse padronizado em todos os cards */
+.sumcard,.ach,.adcard,.lcard,.acard,.act,.mcard2,.cons,.xp,.tl-card,.ct,.fn,.diag,.op{transition:transform .3s cubic-bezier(.2,.7,.3,1),box-shadow .3s ease,border-color .3s ease;}
+.sumcard.hbox:hover,.ach.hbox:hover,.adcard.hbox:hover,.lcard.hbox:hover,.acard.hbox:hover,.act.hbox:hover,.xp.hbox:hover{transform:translateY(-5px);box-shadow:0 22px 44px rgba(30,40,30,.16);}
+.mcard2.hbox:hover,.cons.hbox:hover{transform:translateY(-5px);box-shadow:0 24px 48px rgba(0,0,0,.5);}
+.ct.hbox:hover{transform:translateY(-3px);background:#2A372B;}
+.fn.hbox:hover{transform:scale(1.015);}
+.tl-card.hbox:hover{transform:none;}
+.chart-card.hbox:hover{transform:translateY(-4px);box-shadow:0 22px 44px rgba(30,40,30,.15);}
+.phero-h1{font-size:68px;max-width:1000px;text-wrap:balance;}
+@media(max-width:900px){.phero-h1{font-size:44px;}}
+@media(max-width:600px){.phero-h1{font-size:34px;}}
