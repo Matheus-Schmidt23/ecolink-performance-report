@@ -223,7 +223,7 @@
       stat(N(T.clicks), 'Cliques em Google Ads + Meta Ads', N(T.mc) + ' Meta · ' + N(T.gc) + ' Google') +
       stat(N(T.imp), 'Impressões nas duas plataformas', 'Mais de 3,1 milhões de exibições') +
       stat(N(T.video), 'Visualizações de vídeo (Meta)', N(sum(y26, function (m) { return m.meta.video; })) + ' só em 2026') + '</div>' +
-      '<div class="sumcards three">' + D.summaryCards.map(function (s) { return '<div class="sumcard hbox reveal"><span class="tag g">' + esc(s.tag) + '</span><b>' + esc(s.big) + '</b><span class="u">' + esc(s.unit) + '</span><p>' + esc(s.text) + '</p></div>'; }).join('') + '</div>' +
+      '<div class="sumcards three q4">' + D.summaryCards.concat([{ tag: 'Conteúdo · total', big: N(posts + arts), unit: 'conteúdos planejados', text: 'em ' + CT.length + ' planos editoriais mensais, de ago/25 a nov/26.' }, { tag: 'Conteúdo · formatos', big: N(posts) + ' + ' + N(arts), unit: 'posts + artigos de blog', text: 'Reels, estáticos e carrosséis para as redes e artigos técnicos para o blog.' }]).map(function (s) { return '<div class="sumcard hbox reveal"><span class="tag g">' + esc(s.tag) + '</span><b>' + esc(s.big) + '</b><span class="u">' + esc(s.unit) + '</span><p>' + esc(s.text) + '</p></div>'; }).join('') + '</div>' +
       '<p class="note reveal">' + esc(D.info.kpiNote) + '</p>', 'resumo');
 
     h += fold('light', head('Investimento', 'Para onde foi a verba', 'Distribuição do investimento entre as plataformas e evolução mês a mês.') +
