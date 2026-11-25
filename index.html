@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ecolink Solutions · Marketing Performance Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/pages.css">
+<style>
+  @media(max-width:720px){.nav-links{display:flex;gap:2px;}.nav-links a{padding:8px 10px;}.nav-links a .t{display:none;}}
+</style>
+</head>
+<body>
+<div class="scrollbar"><div class="fill" id="scrollFill"></div></div>
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="nav-brand" href="#analise" aria-label="Ecolink Solutions — início"><img src="assets/logo-ecolink.png" alt="Ecolink Solutions"></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#analise" data-sec="analise">01<span class="t"> Análise</span></a>
+      <a href="#relatorios" data-sec="relatorios">02<span class="t"> Relatórios</span></a>
+      <a href="#conteudos" data-sec="conteudos">03<span class="t"> Conteúdos</span></a>
+      <a href="#recomendacao" data-sec="recomendacao">04<span class="t"> Recomendação</span></a>
+    </div>
+  </div>
+</nav>
+<div id="app"></div>
+<div class="tip" id="tip"></div>
+<script src="data/dashboard.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
