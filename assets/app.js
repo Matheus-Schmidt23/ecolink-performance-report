@@ -461,28 +461,45 @@
   }
 
   /* ---------- modal (PDF / imagem) ---------- */
+  /* download da imagem ampliada em PNG (converte via canvas) */
+  function setDl(src, name) {
+    var b = $('vwD'); b.style.display = '';
+    b.onclick = function () {
+      var img = new Image();
+      img.onload = function () {
+        var c = document.createElement('canvas'); c.width = img.naturalWidth; c.height = img.naturalHeight;
+        c.getContext('2d').drawImage(img, 0, 0);
+        c.toBlob(function (blob) {
+          var a = document.createElement('a'), u = URL.createObjectURL(blob);
+          a.href = u; a.download = 'ecolink-' + String(name).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\w]+/g, '-').replace(/^-|-$/g, '').toLowerCase() + '.png';
+          document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(u); }, 1000);
+        }, 'image/png');
+      };
+      img.src = src;
+    };
+  }
   function modal() {
     var d = $('viewer'); if (d) return d;
     d = document.createElement('dialog'); d.id = 'viewer'; d.className = 'viewer';
-    d.innerHTML = '<div class="vw-h"><b id="vwT"></b><div><a id="vwO" class="btn light" target="_blank" rel="noopener">↗ Nova aba</a><button class="btn" id="vwX">✕ Fechar</button></div></div><div class="vw-b" id="vwB"></div>';
+    d.innerHTML = '<div class="vw-h"><b id="vwT"></b><div><button class="btn light" id="vwD" type="button">⤓ Baixar PNG</button><a id="vwO" class="btn light" target="_blank" rel="noopener">↗ Nova aba</a><button class="btn" id="vwX">✕ Fechar</button></div></div><div class="vw-b" id="vwB"></div>';
     document.body.appendChild(d);
     $('vwX').onclick = function () { d.close(); };
     d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
     d.addEventListener('close', function () { $('vwB').innerHTML = ''; });
     return d;
   }
-  function openPdf(p, t) { var d = modal(); $('vwT').textContent = t || 'Documento'; $('vwO').href = encodeURI(p); $('vwO').style.display = ''; $('vwB').innerHTML = '<iframe src="' + encodeURI(p) + '#view=FitH" title="' + esc(t) + '"></iframe>'; d.showModal(); }
+  function openPdf(p, t) { var d = modal(); $('vwT').textContent = t || 'Documento'; $('vwO').href = encodeURI(p); $('vwO').style.display = ''; $('vwD').style.display = 'none'; $('vwB').innerHTML = '<iframe src="' + encodeURI(p) + '#view=FitH" title="' + esc(t) + '"></iframe>'; d.showModal(); }
   function openSlides(files, cap, i) {
     var d = modal(), n = files.length;
     var show = function () {
-      $('vwT').textContent = (cap || '') + ' · tela ' + (i + 1) + ' de ' + n; $('vwO').href = files[i];
+      $('vwT').textContent = (cap || '') + ' · tela ' + (i + 1) + ' de ' + n; $('vwO').href = files[i]; setDl(files[i], (cap || 'imagem') + ' tela ' + (i + 1));
       $('vwB').innerHTML = '<button class="sl-nav prev" aria-label="Anterior">‹</button><img src="' + files[i] + '" alt="Tela ' + (i + 1) + '"><button class="sl-nav next" aria-label="Próxima">›</button>';
       $('vwB').querySelector('.prev').onclick = function () { i = (i - 1 + n) % n; show(); };
       $('vwB').querySelector('.next').onclick = function () { i = (i + 1) % n; show(); };
     };
     show(); if (!d.open) d.showModal();
   }
-  function openImg(s, cap) { var d = modal(); $('vwT').textContent = cap || 'Imagem'; $('vwO').href = s; $('vwB').innerHTML = '<img src="' + s + '" alt="' + esc(cap) + '">'; d.showModal(); }
+  function openImg(s, cap) { var d = modal(); $('vwT').textContent = cap || 'Imagem'; $('vwO').href = s; setDl(s, cap || 'imagem'); $('vwB').innerHTML = '<img src="' + s + '" alt="' + esc(cap) + '">'; d.showModal(); }
 
   function initUI() {
     var fill = $('scrollFill');
