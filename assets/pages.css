@@ -388,3 +388,13 @@ body.locked .topnav,body.locked .scrollbar,body.locked #app{display:none;}
 .diag p{font-size:13px;line-height:1.55;}
 @media(max-width:1100px){.diag-grid{grid-template-columns:1fr 1fr;}}
 @media(max-width:600px){.diag-grid{grid-template-columns:1fr;}}
+/* Legendas completas com "Ver legenda" */
+.lcard{cursor:zoom-in;}
+.lcard .lc-t{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;white-space:normal;font-size:12.5px;line-height:1.5;padding:0;margin:0 16px 10px;}
+.lcard.open .lc-t{display:block;-webkit-line-clamp:unset;overflow:visible;line-height:1.6;}
+.lc-t .lp{display:block;}
+.lc-t .lp + .lp{margin-top:7px;}
+.lc-more{align-self:flex-start;margin:0 16px 18px;padding:5px 12px;border:1px solid #DCE6DA;border-radius:99px;background:#fff;color:var(--green-text);font:inherit;font-size:11.5px;font-weight:800;cursor:pointer;transition:background .2s,border-color .2s;}
+.lc-more:hover{background:#DCF5E7;border-color:#A8DDBE;}
+.lcard.noimg .lc-t{margin-top:2px;}
+.lib-grid{align-items:start;}

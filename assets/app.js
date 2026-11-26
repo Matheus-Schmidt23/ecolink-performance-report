@@ -428,8 +428,10 @@
         LB.slice().reverse().forEach(function (x) { if (x.f !== k || (mo !== 'all' && x.m !== mo)) return;
           var cap = (k === 'e' ? 'Estático' : 'Carrossel') + ' · ' + x.d + '/' + yr(x.m), files = x.img.map(function (f) { return 'assets/lib/' + f; });
           var attr = !files.length ? '' : k === 'e' ? ' data-img="' + files[0] + '" data-cap="' + esc(cap) + '"' : ' data-slides="' + esc(files.join('|')) + '" data-cap="' + esc(cap) + '"';
-          html += '<button class="lcard hbox' + (files.length ? '' : ' noimg') + '"' + attr + '>' + (files.length ? '<span class="lc-img"><img src="' + files[0] + '" alt="" loading="lazy">' + (k === 'c' ? '<i>' + files.length + ' telas</i>' : '') + '</span>' : '<span class="lc-img lc-txt"><small>' + (k === 'e' ? 'Estático' : 'Carrossel') + '</small><b>' + esc(clean(x.t)) + '</b></span>') +
-            '<span class="lc-d">' + esc(x.d + '/' + yr(x.m)) + '</span>' + (files.length ? '<span class="lc-t">' + esc(clean(x.t)) + '</span>' : '') + '</button>'; });
+          var paras = (D.captions && D.captions[x.m + '|' + x.f + '|' + x.d]) || [x.t];
+          var capHtml = '<span class="lc-t">' + paras.map(function (p) { return '<span class="lp">' + esc(clean(p)) + '</span>'; }).join('') + '</span><button type="button" class="lc-more" data-more="1">Ver legenda ▾</button>';
+          html += '<div class="lcard hbox' + (files.length ? '' : ' noimg') + '" role="button" tabindex="0"' + attr + '>' + (files.length ? '<span class="lc-img"><img src="' + files[0] + '" alt="" loading="lazy">' + (k === 'c' ? '<i>' + files.length + ' telas</i>' : '') + '</span>' : '<span class="lc-img lc-txt"><small>' + (k === 'e' ? 'Estático' : 'Carrossel') + '</small><b>' + esc(clean(x.t)) + '</b></span>') +
+            '<span class="lc-d">' + esc(x.d + '/' + yr(x.m)) + '</span>' + capHtml + '</div>'; });
       }
       $('lib-' + k).innerHTML = html || '<p class="note">Sem itens deste formato no mês selecionado.</p>';
       [].forEach.call(document.querySelectorAll('.lib-chips[data-lib="' + k + '"] button'), function (b) { b.classList.toggle('on', b.dataset.lm === mo); });
@@ -442,7 +444,8 @@
       [].forEach.call(document.querySelectorAll('#tlTrack button'), function (b) { b.classList.toggle('on', b.dataset.tl === id); });
     };
     document.addEventListener('click', function (e) {
-      var t = e.target.closest('[data-cons],[data-m],[data-tl],[data-month],[data-pdf],[data-img],[data-slides],[data-lm]'); if (!t) return;
+      var t = e.target.closest('[data-more],[data-cons],[data-m],[data-tl],[data-month],[data-pdf],[data-img],[data-slides],[data-lm]'); if (!t) return;
+      if (t.dataset.more) { var lc = t.closest('.lcard'), op = lc.classList.toggle('open'); t.textContent = op ? 'Ocultar legenda ▴' : 'Ver legenda ▾'; return; }
       if (t.dataset.pdf) { e.preventDefault(); openPdf(t.dataset.pdf, t.dataset.title); }
       else if (t.dataset.img) { openImg(t.dataset.img, t.dataset.cap); }
       else if (t.dataset.cons) selCons(+t.dataset.cons);
