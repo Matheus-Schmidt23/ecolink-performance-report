@@ -334,7 +334,7 @@
       [[N(nE), 'estáticos'], [N(nC), 'carrosséis'], [N(arts), 'artigos de blog'], [prods.length, 'produtos em pauta']], 'cvisao');
 
     h += fold('white', head('Visão geral', 'Cadência e formatos', 'Quantidade de posts planejados por formato em cada mês.') +
-      '<div class="chart-grid">' + card('chFmt', 'Posts planejados por mês', 'Reels, estáticos e carrosséis', legend([['Reels', C.g], ['Estáticos', '#2A2A2A'], ['Carrosséis', '#FDD400']])) +
+      '<div class="chart-grid">' + card('chFmt', 'Conteúdos planejados por mês', 'Reels, estáticos, carrosséis e artigos de blog', legend([['Reels', C.g], ['Estáticos', '#2A2A2A'], ['Carrosséis', '#FDD400'], ['Artigos', '#8FA3B8']])) +
       '<div class="chart-card hbox reveal"><p class="table-title">Produtos em pauta</p><p class="chart-sub" style="margin-bottom:14px">Em quantos dos ' + CT.length + ' meses cada produto aparece no plano</p>' + hbars(prods, function (v) { return v + ' meses'; }).replace('class="hbars"', 'class="hbars compact"') + '</div></div>' +
       '<div class="disclaimer reveal" style="margin-top:22px"><span>ⓘ</span><span>' + esc(D.info.contentNote) + '</span></div>', 'cvisao');
 
@@ -398,8 +398,8 @@
     mk('mapCtr', [{ name: 'CTR Meta', color: C.g, values: M.map(function (m) { return m.meta.ctr; }) }], function (v) { return N(v, 1) + '%'; }, function (v) { return P(v); });
     mk('mapVid', [{ name: 'Vídeo views', color: C.m, values: M.map(function (m) { return m.meta.video; }) }], function (v) { return N(v); }, function (v) { return N(v); });
     chart($('chFmt'), { title: 'Posts por formato', labels: CT.map(function (c) { return c.month.slice(5) + '/' + c.month.slice(2, 4); }), full: CT.map(function (c) { return c.label; }), partial: null, axis: function (v) { return N(v); }, fmt: function (v) { return N(v); },
-      series: [{ name: 'Reels', color: C.g, values: CT.map(function (c) { return c.posts.reels; }) }, { name: 'Estáticos', color: '#2A2A2A', values: CT.map(function (c) { return c.posts.estatico; }) }, { name: 'Carrosséis', color: '#FDD400', values: CT.map(function (c) { return c.posts.carrossel; }) }],
-      extra: function (i) { return '<div class="r"><span>Total</span><b>' + CT[i].total_posts + '</b></div>'; } });
+      series: [{ name: 'Reels', color: C.g, values: CT.map(function (c) { return c.posts.reels; }) }, { name: 'Estáticos', color: '#2A2A2A', values: CT.map(function (c) { return c.posts.estatico; }) }, { name: 'Carrosséis', color: '#FDD400', values: CT.map(function (c) { return c.posts.carrossel; }) }, { name: 'Artigos', color: '#8FA3B8', values: CT.map(function (c) { return c.artigos.length; }) }],
+      extra: function (i) { return '<div class="r"><span>Total</span><b>' + (CT[i].total_posts + CT[i].artigos.length) + '</b></div>'; } });
 
     /* exploradores */
     var selCons = function (i) {
