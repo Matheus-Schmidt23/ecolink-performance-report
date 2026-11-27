@@ -41,7 +41,7 @@
     if (sessionStorage.getItem('ecoAuth') === PASS_HASH) return done();
     document.body.classList.add('locked');
     var el = document.createElement('div'); el.className = 'login';
-    el.innerHTML = '<form class="login-box" autocomplete="off"><img src="assets/logo-ecolink.png" alt="Ecolink Solutions"><p class="login-eb">Marketing Performance Dashboard</p>' +
+    el.innerHTML = '<form class="login-box" autocomplete="off"><img src="assets/logo-ecolink.png" alt="Ecolink Solutions"><p class="login-eb">Apresentação de Resultados</p>' +
       '<h1>Acesso restrito</h1><p class="login-sub">Digite a senha para visualizar os resultados.</p>' +
       '<input type="password" id="loginPass" placeholder="Senha" aria-label="Senha" required><p class="login-err" id="loginErr"></p>' +
       '<button class="btn" type="submit">Entrar →</button><img class="login-j9" src="assets/logo-j9.png" alt="J9 Marketing"></form>';
