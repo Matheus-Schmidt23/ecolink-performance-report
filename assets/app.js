@@ -351,7 +351,7 @@
     h += phero('estrada-floresta', '04 · Recomendação estratégica', 'O próximo trecho da&nbsp;<span class="hl">estrada</span>', esc(RC.intro), null, 'diag');
 
     h += fold('white', head('Diagnóstico', 'O que os dados mostram') + '<div class="diag-grid">' + [
-      [P(m26.ctr), 'CTR médio Meta em 2026', RC.diagnostico[0]], ['205/235', 'conversões vindas do Search', RC.diagnostico[1]],
+      [P(m26.ctr), 'CTR médio Meta em 2026', RC.diagnostico[0]], ['87%', 'das conversões de 2026 vieram do Search', RC.diagnostico[1]],
       [P(gs[gs.length - 2].rank, 1), 'impressões perdidas por classificação (out/26)', RC.diagnostico[2]], ['9 → 28', 'conversões set → out/26', RC.diagnostico[3]]
     ].map(function (d) { return '<div class="diag card hbox reveal"><div class="big">' + d[0] + '</div><span class="lbl">' + d[1] + '</span><h4>' + esc(d[2].t) + '</h4><p>' + d[2].p + '</p></div>'; }).join('') + '</div>', 'diag');
 

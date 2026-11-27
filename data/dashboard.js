@@ -12,7 +12,7 @@ window.DASHBOARD = {
   },
   "summaryCards": [
     { "tag": "Eficiência · Meta", "big": "+70%", "unit": "cliques por mês", "text": "com investimento estável (+4,8%) e custo por clique 38% menor em 2026." },
-    { "tag": "Conversão · Google", "big": "205/235", "unit": "conversões do Search", "text": "em jan–out/2026, com custo entre R$ 26 e R$ 35 em 8 de 10 meses." }
+    { "tag": "Conversão · Google", "big": "87%", "unit": "das conversões vieram do Search", "text": "205 de 235 conversões em jan–out/2026, com custo entre R$ 26 e R$ 35 em 8 de 10 meses." }
   ],
   "summary": [
     "Em 15 meses e meio de operação, a Ecolink investiu <b>R$ 18.170,85</b> em mídia paga e gerou <b>68.336 cliques</b> e mais de <b>3,1 milhões de impressões</b> entre Google Ads e Meta Ads. O destaque de 2026 é a <b>eficiência</b>: com investimento mensal estável no Meta (+4,8%), os cliques por mês cresceram <b>70%</b> e o custo por clique caiu <b>38%</b>.",
