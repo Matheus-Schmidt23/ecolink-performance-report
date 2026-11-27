@@ -426,7 +426,7 @@
           html += '<article class="acard hbox"><span class="acard-n">' + (i < 9 ? '0' : '') + (i + 1) + '</span><span class="tag plan">' + esc(c.label) + '</span><h4>' + esc(a) + '</h4><button class="btn light" data-pdf="' + esc(c.file) + '" data-title="Plano de conteúdo · ' + esc(c.label) + '">▣ Ver no plano</button></article>'; }); });
       } else {
         LB.slice().reverse().forEach(function (x) { if (x.f !== k || (mo !== 'all' && x.m !== mo)) return;
-          var cap = (k === 'e' ? 'Estático' : 'Carrossel') + ' · ' + x.d + '/' + yr(x.m), files = x.img.map(function (f) { return 'assets/lib/' + f; });
+          var cap = (k === 'e' ? 'Estático' : 'Carrossel') + ' · ' + x.d + '/' + yr(x.m), files = x.img.map(function (f) { return 'assets/lib/' + f + '?v=2'; });
           var attr = !files.length ? '' : k === 'e' ? ' data-img="' + files[0] + '" data-cap="' + esc(cap) + '"' : ' data-slides="' + esc(files.join('|')) + '" data-cap="' + esc(cap) + '"';
           var paras = (D.captions && D.captions[x.m + '|' + x.f + '|' + x.d]) || [x.t];
           var capHtml = '<span class="lc-t">' + paras.map(function (p) { return '<span class="lp">' + esc(clean(p)) + '</span>'; }).join('') + '</span><button type="button" class="lc-more" data-more="1">Ver legenda ▾</button>';
